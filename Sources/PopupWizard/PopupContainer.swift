@@ -69,6 +69,7 @@ public struct PopupContainer: View {
                             // Content Section
                             VStack {
                                 currentStep.content
+                                    .transition(popupManager.viewTransition)
                             }
                             .padding(styles.contentStyle?.padding ?? .init())
                             .clipped()
