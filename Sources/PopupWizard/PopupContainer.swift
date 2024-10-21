@@ -52,13 +52,13 @@ public struct PopupContainer: View {
                         VStack {
                             // Header Section
                             HStack {
-                                if let lastView = popupManager.viewStack.last {
+//                                if let lastView = popupManager.viewStack.last {
                                     currentStep.header
                                         .transition(.opacity)
-                                        .clipShape(
-                                            UnevenRoundedRectangle(cornerRadii: .init(topLeading: styles.cornerRadius, topTrailing: styles.cornerRadius), style: .continuous)
-                                        )
-                                }
+//                                        .clipShape(
+//                                            UnevenRoundedRectangle(cornerRadii: .init(topLeading: styles.cornerRadius, topTrailing: styles.cornerRadius), style: .continuous)
+//                                        )
+//                                }
                             }
                             .geometryGroup()
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -66,11 +66,11 @@ public struct PopupContainer: View {
                             
                             // Content Section
                             VStack {
-                                currentStep.content
-                                    .padding(styles.contentStyle?.padding ?? EdgeInsets())
-                                        .id(currentStep.id)
-                                        .transition(popupManager.currentTransition)
-//                                    .transition(popupManager.viewTransition)
+                                if let lastView = popupManager.viewStack.last {
+                                    lastView.content
+                                        .padding(styles.contentStyle?.padding ?? EdgeInsets())
+                                        .transition(popupManager.viewTransition)
+                                }
                             }
                             .padding(styles.contentStyle?.padding ?? .init())
                             .clipped()
@@ -125,9 +125,7 @@ public struct PopupContainer: View {
                             // Calculate the popup height and the dismiss threshold (75% of popup height)
 //                            let popupHeight = geometry.size.height // Adjusted to 75% of full screen height
 //                            let dismissThreshold = popupHeight * 0.9
-                            
-                            dragValue = value.translation.height
-                            
+                                                        
                             // If the user dragged more than 75% of the popup height, dismiss the popup
                             if value.translation.height >  dismissThreshold {
                                 withAnimation(.smooth) {
