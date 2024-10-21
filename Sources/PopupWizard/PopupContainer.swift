@@ -28,9 +28,7 @@ public struct PopupContainer: View {
 //        self.footer = footer
         self.styles = styles
     }
-    
-    @State private var dragValue = 0.0
-    
+        
     public var body: some View {
         GeometryReader { geometry in
             let popupHeight = geometry.size.height * 0.75 // 75% of screen height
@@ -69,7 +67,10 @@ public struct PopupContainer: View {
                             // Content Section
                             VStack {
                                 currentStep.content
-                                    .transition(popupManager.viewTransition)
+                                    .padding(styles.contentStyle?.padding ?? EdgeInsets())
+                                        .id(currentStep.id)
+                                        .transition(popupManager.currentTransition)
+//                                    .transition(popupManager.viewTransition)
                             }
                             .padding(styles.contentStyle?.padding ?? .init())
                             .clipped()

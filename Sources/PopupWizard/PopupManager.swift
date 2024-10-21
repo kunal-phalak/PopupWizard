@@ -27,14 +27,20 @@ public class PopupManager: ObservableObject {
     /// Determines the transition based on navigation direction.
     private func transitionForDirection() -> AnyTransition {
         isForward
-            ? .asymmetric(
-                insertion: .move(edge: .trailing).combined(with: .blurReplaceC),
-                removal: .move(edge: .leading).combined(with: .blurReplaceC)
-              )
-            : .asymmetric(
-                insertion: .move(edge: .leading).combined(with: .blurReplaceC),
-                removal: .move(edge: .trailing).combined(with: .blurReplaceC)
-              )
+        ? .asymmetric(
+            insertion: .move(edge: .trailing).combined(with: .blurReplaceC),
+            removal: .move(edge: .leading).combined(with: .blurReplaceC)
+        )
+        : .asymmetric(
+            insertion: .move(edge: .leading).combined(with: .blurReplaceC),
+            removal: .move(edge: .trailing).combined(with: .blurReplaceC)
+        )
+    }
+    
+    public var currentTransition: AnyTransition {
+        isForward
+        ? .move(edge: .trailing).combined(with: .opacity)
+        : .move(edge: .leading).combined(with: .opacity)
     }
 
     /// Resets the transition to default.
