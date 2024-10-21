@@ -44,7 +44,7 @@ public class PopupManager: ObservableObject {
 
     /// Sets a custom transition for the popup views.
     private func setTransition() {
-        viewTransition = .opacity.combined(with: .blurReplaceC)
+        viewTransition = .scale(scale: 0.95).combined(with: .blurReplaceC)
     }
 
     /// Sets the sequence of popup steps.
