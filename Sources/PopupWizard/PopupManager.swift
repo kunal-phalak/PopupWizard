@@ -10,7 +10,6 @@ public class PopupManager: ObservableObject {
     @Published public private(set) var viewStack: [PopupStep] = []
     /// Current transition applied to popup views.
     @Published public private(set) var viewTransition: AnyTransition = .identity
-
     /// Indicates if the current view is the first in the stack.
     @Published public private(set) var isFirstInStack: Bool = true
     /// Indicates if the current view is the last in the stack.
@@ -37,12 +36,6 @@ public class PopupManager: ObservableObject {
         )
     }
     
-    public var currentTransition: AnyTransition {
-        isForward
-        ? .move(edge: .trailing).combined(with: .opacity)
-        : .move(edge: .leading).combined(with: .opacity)
-    }
-
     /// Resets the transition to default.
     private func resetTransition() {
         viewTransition = .opacity
@@ -140,11 +133,11 @@ public class PopupManager: ObservableObject {
     /// Dismisses the popup with a custom animation.
     public func dismissPopupWithAnimation() {
         let animationDuration = Constants.ANIMATION_DURATION
-        withAnimation(.easeInOut(duration: animationDuration)) {
+        withAnimation(.smooth(duration: animationDuration)) {
             isPopupPresented = false
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration * 0.12) {
             self.dismissPopup()
         }
     }
