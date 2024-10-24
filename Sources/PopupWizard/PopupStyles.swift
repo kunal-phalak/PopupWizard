@@ -27,6 +27,8 @@ public struct SectionStyle {
 public struct PopupStyles {
     /// Background color of the popup.
     public var backgroundColor: Color
+    /// Optional background image for the popup.
+    public var backgroundImage: AnyView?
     /// Corner radius of the popup.
     public var cornerRadius: CGFloat
     /// Padding around the popup content.
@@ -37,9 +39,10 @@ public struct PopupStyles {
     public var contentStyle: SectionStyle?
     public var footerStyle: SectionStyle?
 
-    /// Initializes with uniform padding.
+    /// Initializes with uniform padding and optional background image.
     public init(
         backgroundColor: Color = .white,
+        backgroundImage: AnyView? = nil,  // Add backgroundImage parameter
         cornerRadius: CGFloat = 16,
         padding: CGFloat = 16,
         headerStyle: SectionStyle? = nil,
@@ -47,6 +50,7 @@ public struct PopupStyles {
         footerStyle: SectionStyle? = nil
     ) {
         self.backgroundColor = backgroundColor
+        self.backgroundImage = backgroundImage // Initialize backgroundImage
         self.cornerRadius = cornerRadius
         self.padding = EdgeInsets(
             top: padding,
@@ -58,10 +62,11 @@ public struct PopupStyles {
         self.contentStyle = contentStyle
         self.footerStyle = footerStyle
     }
-
+    
     /// Initializes with specific EdgeInsets padding.
     public init(
         backgroundColor: Color = .white,
+        backgroundImage: AnyView? = nil,  // Add backgroundImage parameter
         cornerRadius: CGFloat = 16,
         padding: EdgeInsets,
         headerStyle: SectionStyle? = nil,
@@ -69,6 +74,7 @@ public struct PopupStyles {
         footerStyle: SectionStyle? = nil
     ) {
         self.backgroundColor = backgroundColor
+        self.backgroundImage = backgroundImage // Initialize backgroundImage
         self.cornerRadius = cornerRadius
         self.padding = padding
         self.headerStyle = headerStyle

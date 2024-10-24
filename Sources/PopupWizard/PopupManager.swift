@@ -10,7 +10,6 @@ public class PopupManager: ObservableObject {
     @Published public private(set) var viewStack: [PopupStep] = []
     /// Current transition applied to popup views.
     @Published public private(set) var viewTransition: AnyTransition = .identity
-
     /// Indicates if the current view is the first in the stack.
     @Published public private(set) var isFirstInStack: Bool = true
     /// Indicates if the current view is the last in the stack.
@@ -27,16 +26,16 @@ public class PopupManager: ObservableObject {
     /// Determines the transition based on navigation direction.
     private func transitionForDirection() -> AnyTransition {
         isForward
-            ? .asymmetric(
-                insertion: .move(edge: .trailing).combined(with: .blurReplaceC),
-                removal: .move(edge: .leading).combined(with: .blurReplaceC)
-              )
-            : .asymmetric(
-                insertion: .move(edge: .leading).combined(with: .blurReplaceC),
-                removal: .move(edge: .trailing).combined(with: .blurReplaceC)
-              )
+        ? .asymmetric(
+            insertion: .move(edge: .trailing).combined(with: .blurReplaceC),
+            removal: .move(edge: .leading).combined(with: .blurReplaceC)
+        )
+        : .asymmetric(
+            insertion: .move(edge: .leading).combined(with: .blurReplaceC),
+            removal: .move(edge: .trailing).combined(with: .blurReplaceC)
+        )
     }
-
+    
     /// Resets the transition to default.
     private func resetTransition() {
         viewTransition = .opacity
@@ -134,11 +133,11 @@ public class PopupManager: ObservableObject {
     /// Dismisses the popup with a custom animation.
     public func dismissPopupWithAnimation() {
         let animationDuration = Constants.ANIMATION_DURATION
-        withAnimation(.easeInOut(duration: animationDuration)) {
+        withAnimation(.smooth(duration: animationDuration)) {
             isPopupPresented = false
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration * 0.12) {
             self.dismissPopup()
         }
     }

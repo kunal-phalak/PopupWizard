@@ -3,6 +3,9 @@ import SwiftUI
 /// ViewModifier that attaches a popup to a view.
 public struct PopupWizard: ViewModifier {
     @ObservedObject var popupManager: PopupManager
+    
+//    var globalHeader: AnyView?
+    
     let stylesProvider: PopupStyles
 
     public func body(content: Content) -> some View {
@@ -16,6 +19,7 @@ public struct PopupWizard: ViewModifier {
                     styles: stylesProvider
                 )
                 .zIndex(1)
+                .allowsHitTesting(popupManager.isPopupPresented)
                 .transition(popupManager.viewTransition)
             }
         }
